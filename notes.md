@@ -11,6 +11,7 @@ The App.java class is the entry point to the program. The project itself seems t
 ConsoleColor goes and creates an enum storing colors as ANSI codes which can change the texts color within a terminal. The RESET value goes and resets all the color changes made. The getCode and toString methods both return the stored code so it can be used as a variable. 
 
 ## ColorPrinter.java / ColorPrinterTest.java
+ColorPrinter prints text to a private PrintStream using the current ConsoleColor. The current color can be changed by setCurrentColor then print to display the text. I think the unfinished method print(String message, boolean reset) should print the current color code, print the message and also print ConsoleColor.RESET so it resets the terminal text. 
 
 ## TruffulaOptions.java / TruffulaOptionsTest.java
 
