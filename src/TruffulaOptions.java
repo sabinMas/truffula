@@ -102,6 +102,33 @@ public class TruffulaOptions  {
    */
   public TruffulaOptions(String[] args) throws IllegalArgumentException, FileNotFoundException {
     // TODO: Replace the below lines with your implementation
+    //throw error if missing arguments or because a path is required 
+      if(args == null || args.length == 0){
+        throw new IllegalArgumentException("A directory path is required or you typed something wrong");
+      }
+      // default flags from instructions above and stored as a boolean
+      boolean showHidden = false;
+      boolean useColor = true;
+      //read all arguments before the final path to look for supported flags
+      for (int i = 0; i < args.length - 1; i++) {
+        String argument = args[i];
+
+        //set to true, the hidden file output when the -h is flagged
+        if (argument.equals("-h")) {
+            parsedShowHidden = true;
+
+        //disable color output when -nc is checked
+        } else if (argument.equals("-nc")) {
+            parsedUseColor = false;
+
+        // reject anything that are not the flags
+        } else {
+            throw new IllegalArgumentException("Unknown argument: " + argument);
+        }
+    }
+
+
+
     root = null;
     showHidden = false;
     useColor = false;
