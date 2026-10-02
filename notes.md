@@ -8,7 +8,7 @@ The App.java class is the entry point to the program. The project itself seems t
 
 
 ## ConsoleColor.java
-
+ConsoleColor goes and creates an enum storing colors as ANSI codes which can change the texts color within a terminal. The RESET value goes and resets all the color changes made. The getCode and toString methods both return the stored code so it can be used as a variable. 
 
 ## ColorPrinter.java / ColorPrinterTest.java
 
