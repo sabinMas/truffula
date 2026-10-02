@@ -4,8 +4,11 @@ As part of Wave 0, please fill out notes for each of the below files. They are i
 PLEASE MAKE FREQUENT COMMITS AS YOU FILL OUT THIS FILE.
 
 ## App.java
+The App.java class is the entry point to the program. The project itself seems to take command-line arguments to show hidden files or turn off color. The main method in this should create multiple options under an object called TruffulaOptions. Those options will then be passed to TruffulaPrinter and call printTree to display the directory tree.
+
 
 ## ConsoleColor.java
+
 
 ## ColorPrinter.java / ColorPrinterTest.java
 
