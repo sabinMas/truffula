@@ -35,7 +35,7 @@ public class App {
    * 2. ['-h', '-nc', '/path/to/directory']
    *    → Don't use color, do show hidden files (order of flags is ignored).
    * 
-   * 3. ['/path/to/directory']
+   * 3. ['/path/to/directory'] 
    *    → Use color, don't show hidden files.
    * 
    * Error messages will be shown for illegal arguments or a not found file
@@ -45,5 +45,17 @@ public class App {
     // You should create a TruffulaOptions object using the args and
     // pass it to a new TruffulaPrinter that uses System.out
     // Then, call printTree on the TruffulaPrinter
+
+    //truffula options object
+    TruffulaOptions options = new TruffulaOptions(args);
+
+    //create a new printer to write to the terminal 
+    //System.out was slightly confusing here so I looked up more on it
+    TruffulaPrinter printer = new TruffulaPrinter(options, System.out);
+
+    //print the tree
+    // tested in terminal using java src/App.java -nc -h src 
+    // and got printTree was called!
+    printer.printTree();
   }
 }
