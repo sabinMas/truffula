@@ -26,4 +26,20 @@ class ColorPrinterTest {
     // Assert: Verify the printed output
     assertEquals(expectedOutput, outputStream.toString());
   }
+  @Test 
+  void testPrintWithReset () {
+    // copied from above
+    // Arrange: Capture the printed output
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(outputStream);
+
+    ColorPrinter printer = new ColorPrinter(printStream);
+    printer.setCurrentColor(ConsoleColor.GREEN);
+    //ACT
+    printer.print("Hello", true);
+
+    //Assert
+    String expectedOutput = ConsoleColor.GREEN + "Hello" + ConsoleColor.RESET;
+    assertEquals(expectedOutput, outputStream.toString());
+  }
 }

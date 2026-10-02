@@ -87,15 +87,14 @@ public class ColorPrinter {
    */
   public void print(String message, boolean reset) {
     // TODO: Implement this!
-    // use printStream so we can send the message to the specific output
-    //print the color code 
+    //first print the color code 
     printStream.print(currentColor);
-    //then we print the message
+    //then print the message
     printStream.print(message);
 
     //check to see if terminal should be reset 
     if(reset){
-      printStream.print(RESET);
+      printStream.print(ConsoleColor.RESET);
     }
   }
 
