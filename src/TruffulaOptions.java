@@ -107,32 +107,55 @@ public class TruffulaOptions  {
         throw new IllegalArgumentException("A directory path is required or you typed something wrong");
       }
       // default flags from instructions above and stored as a boolean
-      boolean showHidden = false;
-      boolean useColor = true;
+      boolean hidden = false;
+      boolean color = true;
       //read all arguments before the final path to look for supported flags
       for (int i = 0; i < args.length - 1; i++) {
         String argument = args[i];
 
         //set to true, the hidden file output when the -h is flagged
         if (argument.equals("-h")) {
-            parsedShowHidden = true;
+            hidden= true;
 
         //disable color output when -nc is checked
         } else if (argument.equals("-nc")) {
-            parsedUseColor = false;
+            color = false;
 
         // reject anything that are not the flags
         } else {
             throw new IllegalArgumentException("Unknown argument: " + argument);
         }
     }
+    // This part had me stuck for a while and it took a while to get the
+    // tests working. I was ultimately forgetting to create a temp file
+    // Read the final argument, which must be the required directory path.
+    String directoryPath = args[args.length - 1];
 
-
-
-    root = null;
-    showHidden = false;
-    useColor = false;
-  }
+    // reject a flag in the last position because a path is required 
+    if (directoryPath.startsWith("-")) {
+        throw new IllegalArgumentException(
+            "A directory path is required."
+        );
+    }
+    // create a temporary file to represent the directory path
+    File parsedRoot = new File(directoryPath);
+    // reject the path when it does not exist.
+    if (!parsedRoot.exists()) {
+        throw new FileNotFoundException(
+            "Directory does not exist: " + directoryPath
+        );
+    }
+    // reject the path when it exists but is a regular file, not a directory.
+    if (!parsedRoot.isDirectory()) {
+        throw new FileNotFoundException(
+            "Path is not a directory: " + directoryPath
+        );
+    }
+    // assign the final values 
+    root = parsedRoot;
+    showHidden = hidden;
+    useColor = color;
+}
 
   /**
    * Constructs a TruffulaOptions object with explicit values.
