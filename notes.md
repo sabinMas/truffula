@@ -22,7 +22,8 @@ TruffularOptionsTest is another JUnit test file the helps verify the TruffulaOpt
 
 
 ## TruffulaPrinter.java / TruffulaPrinterTest.java
+TruffulaPrinter is the main class which builds and prints the file tree, it takes in teh user's TruffulaOptions as well as ColorPrinter to format the text to the console. It recursively goes and visits every folder inside the chosen root.                                      
 
-
+TruffulaPrinterTest is another Junit test file which creates a temporary folder system and then calls TruffulaPrinter to print the same folder structure. It also checks the OS of the system its being ran on before moving forward. 
 
 ## AlphabeticalFileSorter.java
