@@ -16,7 +16,13 @@ ColorPrinter prints text to a private PrintStream using the current ConsoleColor
 ColorPrinterTest looks like standard JUnit testing whcih checks to see if ColorPrinter.println() prints the colored text correctly as well as reset the color afterward. The ByteArrayOutputSteam is a new concept to me and I will be learning what that is through this process. 
 
 ## TruffulaOptions.java / TruffulaOptionsTest.java
+TruffulaOptions is where all the logic will be held for storing the user's settings. It will determine which folders to print and whether hidden files should be included or if the text should be a different color. Its where private final File root, private final boolean showHidden, and private final boolean useColor are located. 
+
+TruffularOptionsTest is another JUnit test file the helps verify the TruffulaOptions(String[] args) constructor is correctly reading the command-line arguments and saves the proper color and hidden file settings. 
+
 
 ## TruffulaPrinter.java / TruffulaPrinterTest.java
+
+
 
 ## AlphabeticalFileSorter.java
