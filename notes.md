@@ -27,3 +27,4 @@ TruffulaPrinter is the main class which builds and prints the file tree, it take
 TruffulaPrinterTest is another Junit test file which creates a temporary folder system and then calls TruffulaPrinter to print the same folder structure. It also checks the OS of the system its being ran on before moving forward. 
 
 ## AlphabeticalFileSorter.java
+This file is a utility class as described in it's file comments: It sorts an array of File objects alphabetically. It ignores the case of the letters, and uses lambdas.  
