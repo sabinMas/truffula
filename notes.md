@@ -13,6 +13,8 @@ ConsoleColor goes and creates an enum storing colors as ANSI codes which can cha
 ## ColorPrinter.java / ColorPrinterTest.java
 ColorPrinter prints text to a private PrintStream using the current ConsoleColor. The current color can be changed by setCurrentColor then print to display the text. I think the unfinished method print(String message, boolean reset) should print the current color code, print the message and also print ConsoleColor.RESET so it resets the terminal text. 
 
+ColorPrinterTest looks like standard JUnit testing whcih checks to see if ColorPrinter.println() prints the colored text correctly as well as reset the color afterward. The ByteArrayOutputSteam is a new concept to me and I will be learning what that is through this process. 
+
 ## TruffulaOptions.java / TruffulaOptionsTest.java
 
 ## TruffulaPrinter.java / TruffulaPrinterTest.java
