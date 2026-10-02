@@ -1,5 +1,6 @@
 import java.io.PrintStream;
 import java.util.List;
+import java.io.File;
 
 /**
  * TruffulaPrinter is responsible for printing a directory tree structure
@@ -105,14 +106,49 @@ public class TruffulaPrinter {
   public void printTree() {
     // TODO: Implement this!
     // REQUIRED: ONLY use java.io, DO NOT use java.nio
-    
+    printFileOrDirectory(options.getRoot(),0);
+  }    
     // Hints:
     // - Add a recursive helper method
     // - For Wave 6: Use AlphabeticalFileSorter
     // DO NOT USE SYSTEM.OUT.PRINTLN
     // USE out.println instead (will use your ColorPrinter)
 
-    out.println("printTree was called!");
-    out.println("My options are: " + options);
-  }
+    //the isDirectory function was confusing because I didn't know to use
+    //until looking up how to verify if a file is a directory or not. 
+    private void printFileOrDirectory(File file, int depth){
+      //empty string to set line indentation to 3 spaces
+      String indent = "";
+      for(int i = 0; i <depth; i++){
+        indent += "   ";
+      }
+      //get current name of file or directory
+      String name = file.getName();
+      //if current is a directory we will add a / 
+      if(file.isDirectory()){
+        name += "/";
+      }
+      // again using out.print is confusing, from looking it up it 
+      // seems to be a printStream object
+      //print the next level
+      out.println(indent + name);
+
+      //regular file case with no dependencies or children
+      if(!file.isDirectory()){
+        return;
+      }
+
+      //looked up how to list files 
+      File[] children = file.listFiles();
+
+      //stop if directory can't be read
+      if (children == null){
+        return;
+      }
+      //add a level each time we print a child and go deeper into the tree
+      for(File child : children){
+        printFileOrDirectory(child, depth + 1);
+      }
+      
+    }
 }
