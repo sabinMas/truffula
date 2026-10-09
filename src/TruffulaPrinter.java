@@ -1,4 +1,5 @@
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.List;
 import java.io.File;
 
@@ -150,6 +151,11 @@ public class TruffulaPrinter {
       if (children == null){
         return;
       }
+
+      //Wave 7 we use AlphabeticalFileSorter on the array to sort it 
+      Arrays.sort(children, (a, b) -> a.getName().compareTo(b.getName()));
+      children = AlphabeticalFileSorter.sort(children);
+
       //add a level each time we print a child and go deeper into the tree
       for(File child : children){
         //skip hidden entries wave 5 unles -h was given
