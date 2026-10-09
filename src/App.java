@@ -49,8 +49,7 @@ public class App {
     //truffula options object
     TruffulaOptions options = new TruffulaOptions(args);
 
-    //create a new printer to write to the terminal 
-    //System.out was slightly confusing here so I looked up more on it
+    //creatd a new printer to write to the terminal 
     TruffulaPrinter printer = new TruffulaPrinter(options, System.out);
 
     //print the tree

@@ -113,10 +113,7 @@ public class TruffulaPrinter {
     // - For Wave 6: Use AlphabeticalFileSorter
     // DO NOT USE SYSTEM.OUT.PRINTLN
     // USE out.println instead (will use your ColorPrinter)
-
-    //the isDirectory function was confusing because I didn't know to use
-    //until looking up how to verify if a file is a directory or not. 
-    private void printFileOrDirectory(File file, int depth){
+    private void printFileOrDirectory(File file, int depth){  
       //empty string to set line indentation to 3 spaces
       String indent = "";
       for(int i = 0; i <depth; i++){
@@ -128,8 +125,6 @@ public class TruffulaPrinter {
       if(file.isDirectory()){
         name += "/";
       }
-      // again using out.print is confusing, from looking it up it 
-      // seems to be a printStream object
       //print the next level
       out.println(indent + name);
 
@@ -137,16 +132,19 @@ public class TruffulaPrinter {
       if(!file.isDirectory()){
         return;
       }
-
       //looked up how to list files 
       File[] children = file.listFiles();
-
       //stop if directory can't be read
       if (children == null){
         return;
       }
       //add a level each time we print a child and go deeper into the tree
       for(File child : children){
+        //skip hidden entries wave 5 unles -h was given
+        if(!options.isShowHidden() && child.isHiddden()){
+          continue; // this java keyword will stop the iteration and move to the next 
+          //skip this child go to next
+        }
         printFileOrDirectory(child, depth + 1);
       }
       
