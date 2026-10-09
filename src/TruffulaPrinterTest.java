@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 //false checks for wave 5
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -225,6 +224,50 @@ public class TruffulaPrinterTest {
         expected.append(line(ConsoleColor.WHITE, "      b.txt"));
         assertEquals(expected.toString(), output);
     }
+
+    //wave 7 tests
+    @Test
+    public void testDataIsNotAlphabetical(@TempDir File tempDir) throws IOException {
+    // Created out of order and with mixed case.
+        new File(tempDir, "zurg.txt").createNewFile();
+        new File(tempDir, "Beans.txt").createNewFile();
+        new File(tempDir, "ancientAliens.txt").createNewFile();
+        new File(tempDir, "DoNotLook.txt").createNewFile();
+
+        String output = runPrinter(new TruffulaOptions(tempDir, false, false));
+
+        StringBuilder expected = new StringBuilder();
+        expected.append(line(ConsoleColor.WHITE, tempDir.getName() + "/"));
+        expected.append(line(ConsoleColor.WHITE, "   ancientAliens.txt"));
+        expected.append(line(ConsoleColor.WHITE, "   Beans.txt")); 
+        expected.append(line(ConsoleColor.WHITE, "   DoNotLook.txt"));
+        expected.append(line(ConsoleColor.WHITE, "   zurg.txt"));
+        assertEquals(expected.toString(), output);
+    }
+
+    @Test
+    public void testNestedDirectoriesAreSorted(@TempDir File tempDir) throws IOException {
+        File dir = new File(tempDir, "DiscordChannel");
+        assertTrue(dir.mkdir());
+        new File(dir, "Yousif.txt").createNewFile();
+        new File(dir, "Drew.txt").createNewFile();
+        new File(tempDir, "Account.txt").createNewFile();
+
+        String output = runPrinter(new TruffulaOptions(tempDir, false, false));
+
+        StringBuilder expected = new StringBuilder();
+        expected.append(line(ConsoleColor.WHITE, tempDir.getName() + "/"));
+        expected.append(line(ConsoleColor.WHITE, "   Account.txt"));
+        expected.append(line(ConsoleColor.WHITE, "   DiscordChannel/"));     
+        expected.append(line(ConsoleColor.WHITE, "      Drew.txt"));  
+        expected.append(line(ConsoleColor.WHITE, "      Yousif.txt"));
+        assertEquals(expected.toString(), output);
+        }
+
+
+
+
+
 
     
 }
