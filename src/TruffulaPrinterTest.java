@@ -164,7 +164,7 @@ public class TruffulaPrinterTest {
     @Test
     public void testHiddenFileIsSkippedWhenShowHiddenFalse (@TempDir File tempDir) throws IOException{
         new File(tempDir, "visible.txt").createNewFile();
-        createHiddenFile(tempDir, ".hidden.txt");
+        createHiddenFile(tempDir, ".secret.txt");
 
          String output = runPrinter(new TruffulaOptions(tempDir, false, false));
 
