@@ -184,4 +184,49 @@ public class TruffulaPrinterTest {
         assertTrue(output.contains(".secret.txt"), "hidden file should be printed with -h");
     }
 
+
+    //Wave 6 helper method and tests
+    //found good documentation on lineSeparator saving for later 
+    // https://www.geeksforgeeks.org/java/java-system-lineseparator-method/
+    private static String line(ConsoleColor color, String text) {
+    return color.toString() + text + System.lineSeparator() + ConsoleColor.RESET;
+    }
+
+    @Test
+    public void testColorsCycleThroughDefaultSequence(@TempDir File tempDir) throws IOException {
+        // tempDir/a/b/c/d.txt  (a chain deep enough to wrap the 3-color cycle)
+        File c = new File(tempDir, "a/b/c");
+        assertTrue(c.mkdirs());
+        new File(c, "d.txt").createNewFile();
+
+        String output = runPrinter(new TruffulaOptions(tempDir, false, true));
+
+        // The root's name is a random temp-folder name, so read it from the File.
+        StringBuilder expected = new StringBuilder();
+        expected.append(line(ConsoleColor.WHITE,  tempDir.getName() + "/"));
+        expected.append(line(ConsoleColor.PURPLE, "   a/"));
+        expected.append(line(ConsoleColor.YELLOW, "      b/"));
+        expected.append(line(ConsoleColor.WHITE,  "         c/")); 
+        expected.append(line(ConsoleColor.PURPLE, "            d.txt"));          
+        assertEquals(expected.toString(), output);
+    }
+
+    @Test
+    public void testNoColorPrintsEverythingInWhite(@TempDir File tempDir) throws IOException {
+        File a = new File(tempDir, "a");
+        assertTrue(a.mkdir());
+        new File(a, "b.txt").createNewFile();
+
+        String output = runPrinter(new TruffulaOptions(tempDir, false, false)); // useColor = false
+
+        StringBuilder expected = new StringBuilder();
+        expected.append(line(ConsoleColor.WHITE, tempDir.getName() + "/"));
+        expected.append(line(ConsoleColor.WHITE, "   a/"));
+        expected.append(line(ConsoleColor.WHITE, "      b.txt"));
+        assertEquals(expected.toString(), output);
+    }
+
+    
 }
+
+ 

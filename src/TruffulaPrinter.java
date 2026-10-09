@@ -114,6 +114,18 @@ public class TruffulaPrinter {
     // DO NOT USE SYSTEM.OUT.PRINTLN
     // USE out.println instead (will use your ColorPrinter)
     private void printFileOrDirectory(File file, int depth){  
+    //wave 6 should be white, purple, yellow, then back to white
+    //depth % size of cycles 0,1,2,0,1,2
+    // with -nc useColor == false set it all to white
+     ConsoleColor color;
+    if (options.isUseColor()) {
+      color = colorSequence.get(depth % colorSequence.size());
+    } else {
+      color = ConsoleColor.WHITE;
+    }
+    out.setCurrentColor(color);
+
+
       //empty string to set line indentation to 3 spaces
       String indent = "";
       for(int i = 0; i <depth; i++){
