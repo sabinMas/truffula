@@ -141,7 +141,7 @@ public class TruffulaPrinter {
       //add a level each time we print a child and go deeper into the tree
       for(File child : children){
         //skip hidden entries wave 5 unles -h was given
-        if(!options.isShowHidden() && child.isHiddden()){
+        if(!options.isShowHidden() && child.isHidden()){
           continue; // this java keyword will stop the iteration and move to the next 
           //skip this child go to next
         }

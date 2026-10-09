@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+//false checks for wave 5
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -149,4 +152,36 @@ public class TruffulaPrinterTest {
         // Assert that the output matches the expected output exactly
         assertEquals(expected.toString(), output);
     }
+
+    //helper method for wave 5 tests
+    //coppied baos logic from above 
+    private static String runPrinter(TruffulaOptions options) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        new TruffulaPrinter(options, new PrintStream(baos)).printTree();
+        return baos.toString();
+    }
+    //Wave 5 test copied format from above to get started
+    // both tests will test ShowHidden true or false
+    @Test
+    public void testHiddenFileIsSkippedWhenShowHiddenFalse (@TempDir File tempDir) throws IOException{
+        new File(tempDir, "visible.txt").createNewFile();
+        createHiddenFile(tempDir, ".hidden.txt");
+
+         String output = runPrinter(new TruffulaOptions(tempDir, false, false));
+
+        assertTrue(output.contains("visible.txt"));
+        assertFalse(output.contains(".secret.txt"), "hidden file must not be printed");
+    }
+
+    @Test
+    public void testHiddenFileIsShownWhenShowHiddenTrue(@TempDir File tempDir) throws IOException {
+        new File(tempDir, "visible.txt").createNewFile();
+        createHiddenFile(tempDir, ".secret.txt");
+
+        String output = runPrinter(new TruffulaOptions(tempDir, true, false));
+
+        assertTrue(output.contains("visible.txt"));
+        assertTrue(output.contains(".secret.txt"), "hidden file should be printed with -h");
+    }
+
 }
